@@ -25,6 +25,8 @@ jobs:
           cp -rn shard_jumpstart/.?* .
           rm -rf shard_jumpstart/
 
+          ls -al
+
           echo "Appending Default Shards to shard.yml"
           cat append.shard.yml >> shard.yml
           rm -rf append.shard.yml
@@ -36,6 +38,3 @@ jobs:
           git add .
           git commit -am "See build branch for documentation"
           git push -f origin build:main
-
-      - name: list env
-        run: env
