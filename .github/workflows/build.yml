@@ -1,0 +1,37 @@
+on:
+  push:
+    branches: [build]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1.6.0
+
+      - name: Build
+        run: |
+          echo "Removing build specific files"
+          rm -f .github/workflows/build.yml
+
+          echo "🔮Initializing via: crystal init lib shard_jumpstart"
+          crystal init lib shard_jumpstart
+
+          echo "Merging template with shard init"
+          cp -rn shard_jumpstart/* .
+          cp -rn shard_jumpstart/.?* .
+          rm -rf shard_jumpstart/
+
+      - name: Push Build to Main
+        run: |
+          git config --global user.email "alex@piechowski.io"
+          git config --global user.name "Alex Piechowski"
+          git add .
+          git commit -am "See build branch for documentation"
+          git push -f origin build:main
+
+      - name: list env
+        run: env
