@@ -34,5 +34,5 @@ jobs:
           git config --global user.email "alex@piechowski.io"
           git config --global user.name "Alex Piechowski"
           git add .
-          git commit -am "See build branch for documentation"
+          git commit -am "Build: This commit will be overwritten upon template creation"
           git push -f origin build:main
