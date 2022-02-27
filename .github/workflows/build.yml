@@ -25,6 +25,10 @@ jobs:
           cp -rn shard_jumpstart/.?* .
           rm -rf shard_jumpstart/
 
+          echo "Appending Default Shards to shard.yml"
+          cat append.shard.yml >> shard.yml
+          rm -rf append.shard.yml
+
       - name: Push Build to Main
         run: |
           git config --global user.email "alex@piechowski.io"
