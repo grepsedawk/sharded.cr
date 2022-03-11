@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -e
+
+only_repo=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
+shard_name=${only_repo%.cr}
+new_snek_name=$(echo $shard_name | sed 's/-/_/g')
+
+echo "🔮Initializing via: lucky init"
+crystal init lib $new_snek_name
+
+echo "Merging template with crystal init lib"
+cp $new_snek_name/README.md .
+cp -rn $new_snek_name/* .
+cp -rn $new_snek_name/.?* .
+rm -rf $new_snek_name/
+
+echo "Adding default dependencies to shard.yml"
+cat <<EOF >> shard.yml
+dependencies:
+  habitat:
+    github: luckyframework/habitat
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: ~> 0.14
+  spectator:
+    github: icy-arctic-fox/spectator
+    version: ~> 0.10
+EOF
+
+echo "Removing install specific files"
+rm -f .github/workflows/install.yml
+rm -f .github/workflows/install

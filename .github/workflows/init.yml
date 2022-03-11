@@ -1,0 +1,50 @@
+on: push
+
+jobs:
+  init:
+    if: github.repository != 'grepsedawk/sharded.cr'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Add README Progress
+        run: |
+          echo "# Template Build In Progress" > README.md
+          echo >> README.md
+          echo "- Installing Crystal..." >> README.md
+
+      - uses: grepsedawk/force-push-changes@v0.1.0
+
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1.6.0
+
+
+      - name: Add README Progress
+        run: |
+          echo "- Running template build to overlay template..." >> README.md
+          git add README.md
+
+      - uses: grepsedawk/force-push-changes@v0.1.0
+
+      - run: .github/workflows/install
+      - uses: grepsedawk/force-push-changes@v0.1.0
+
+  clone-example:
+    if: github.repository == 'grepsedawk/sharded.cr' && github.ref == 'refs/heads/main'
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1.6.0
+
+      - run: .github/workflows/install
+      - run: git checkout -b example
+      - run: git add .
+      - run: |
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config user.name "${GITHUB_ACTOR}"
+      - run: git commit -m "Demo Install"
+      - run: git push --force origin example
