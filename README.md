@@ -14,3 +14,4 @@ This template ships with:
   to automatically deploy crystal docs to the `gh-pages` branch
 - [Habitat](https://github.com/luckyframework/habitat) for configuration management
 - [Spectator](https://github.com/icy-arctic-fox/spectator) for testing
+- [script/setup](https://github.com/grepsedawk/sharded.cr/blob/main/script/setup) for easy setup
