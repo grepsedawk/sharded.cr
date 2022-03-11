@@ -40,11 +40,11 @@ jobs:
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1.6.0
 
-      - run: .github/workflows/install
+      - run: .github/workflows/init
       - run: git checkout -b example
       - run: git add .
       - run: |
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git config user.name "${GITHUB_ACTOR}"
-      - run: git commit -m "Demo Install"
+      - run: git commit -m "Demo Init"
       - run: git push --force origin example

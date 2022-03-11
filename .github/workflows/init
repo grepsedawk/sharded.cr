@@ -28,6 +28,10 @@ development_dependencies:
     version: ~> 0.10
 EOF
 
+echo "Installing spectator to specs"
+echo 'require "spectator"' >> spec/spec_helper.cr
+sed -i 's/^describe/Spectator.describe/g' spec/*_spec.cr
+
 echo "Removing install specific files"
 rm -f .github/workflows/init.yml
 rm -f .github/workflows/init
