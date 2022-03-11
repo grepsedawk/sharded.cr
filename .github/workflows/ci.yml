@@ -8,6 +8,7 @@ on:
 
 jobs:
   CheckFormat:
+    if: github.repository != 'grepsedawk/sharded.cr'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.4.0
@@ -39,6 +40,7 @@ jobs:
         run: ./bin/ameba
 
   RunSpecs:
+    if: github.repository != 'grepsedawk/sharded.cr'
     runs-on: ubuntu-latest
 
     strategy:
