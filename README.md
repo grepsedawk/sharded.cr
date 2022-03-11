@@ -1,4 +1,4 @@
-# sharded.cr
+# sharded.cr ([Example](https://github.com/grepsedawk/sharded.cr/tree/example))
 
 sharded.cr is a Github Template for new Crystal Shards.
 
