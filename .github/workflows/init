@@ -4,14 +4,15 @@ set -e
 
 only_repo=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
 shard_name=${only_repo%.cr}
-new_snek_name=$(echo $shard_name | sed 's/-/_/g')
+snek_name=$(echo $shard_name | sed 's/-/_/g')
+constant_name=$(echo $shard_name | sed -r 's/(^|_|-)([a-z])/\U\2/g')
 
 echo "Merging template with crystal init lib"
-crystal init lib $new_snek_name
-cp $new_snek_name/README.md .
-cp -rn $new_snek_name/* .
-cp -rn $new_snek_name/.?* .
-rm -rf $new_snek_name/
+crystal init lib $snek_name
+cp $snek_name/README.md .
+cp -rn $snek_name/* .
+cp -rn $snek_name/.?* .
+rm -rf $snek_name/
 
 echo "Adding default dependencies to shard.yml"
 cat <<EOF >> shard.yml
@@ -30,7 +31,15 @@ EOF
 
 echo "Installing spectator to specs"
 echo 'require "spectator"' >> spec/spec_helper.cr
-sed -i 's/^describe/Spectator.describe/g' spec/*_spec.cr
+cat <<EOF > spec/${snek_name}_spec.cr
+require "./spec_helper"
+
+Spectator.describe ${constant_name} do
+  it "should have a version" do
+    expect(${constant_name}::VERSION).to be_a(String)
+  end
+end
+EOF
 
 echo "Removing install specific files"
 rm -f .github/workflows/init.yml
