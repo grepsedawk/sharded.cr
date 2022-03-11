@@ -31,5 +31,5 @@ development_dependencies:
 EOF
 
 echo "Removing install specific files"
-rm -f .github/workflows/install.yml
-rm -f .github/workflows/install
+rm -f .github/workflows/init.yml
+rm -f .github/workflows/init
