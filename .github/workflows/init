@@ -6,10 +6,8 @@ only_repo=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
 shard_name=${only_repo%.cr}
 new_snek_name=$(echo $shard_name | sed 's/-/_/g')
 
-echo "🔮Initializing via: lucky init"
-crystal init lib $new_snek_name
-
 echo "Merging template with crystal init lib"
+crystal init lib $new_snek_name
 cp $new_snek_name/README.md .
 cp -rn $new_snek_name/* .
 cp -rn $new_snek_name/.?* .
