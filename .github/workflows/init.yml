@@ -5,6 +5,31 @@ jobs:
     if: github.repository != 'grepsedawk/sharded.cr'
     runs-on: ubuntu-latest
     steps:
+      - name: Suggesting repo ends in .cr
+        if: ${{ !endsWith(github.repository, '.cr') }}
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/issues \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Suggestion: Add .cr to end of repo name",
+            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n Suggest adding .cr to end of repository name. It is a helpful convention used by many crystal libraries.\n\n Suggested name: _${{ github.repository }}.cr_"
+            }' \
+          --fail
+
+      - name: Making issue for first release
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/issues \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Create your first release!",
+            "body": "When you are ready, create your first shard release!\n\nReleasing a crystal shard is easy, based on git tags. Here is an except from the crystal Reference:\n>When libraries are installed from Git repositories, the repository is expected to have version tags following a [semver](http://semver.org/)-like format, prefixed with a `v`. Examples: `v1.2.3`, `v2.0.0-rc1` or `v2017.04.1`.\n> - [source](https://github.com/crystal-lang/shards/blob/master/README.md#usage)\n\nTo create your first release, head on over to https://github.com/${{ github.repository }}/releases/new and pick a tag matching the shards tagging system (_for example: `v0.1.0`_)\n\n> For my first releases, I usually use _v0.1.0_, and once things become ready for public consumption, I bump to _v1.0.0_ (or higher).\n> - [grepsedawk](https://github.com/grepsedawk)\n\nThis issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**."
+            }' \
+          --fail
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -29,19 +54,6 @@ jobs:
 
       - run: .github/workflows/init
       - uses: grepsedawk/force-push-changes@v0.1.0
-
-      - name: Suggesting repo ends in .cr
-        if: ${{ !endsWith(github.repository, '.cr') }}
-        run: |
-          curl --request POST \
-          --url https://api.github.com/repos/${{ github.repository }}/issues \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' \
-          --data '{
-            "title": "Suggestion: Add .cr to end of repo name",
-            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n Suggest adding .cr to end of repository name. It is a helpful convention used by many crystal libraries.\n\n Suggested name: _${{ github.repository }}.cr_"
-            }' \
-          --fail
 
   clone-example:
     if: github.repository == 'grepsedawk/sharded.cr' && github.ref == 'refs/heads/main'
