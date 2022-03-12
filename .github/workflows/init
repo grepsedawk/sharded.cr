@@ -7,11 +7,13 @@ shard_name=${only_repo%.cr}
 snek_name=$(echo $shard_name | sed 's/-/_/g')
 constant_name=$(echo $shard_name | sed -r 's/(^|_|-)([a-z])/\U\2/g')
 
+echo "Deleting template specific files"
+rm -f README.md LICENSE
+
 echo "Merging template with crystal init lib"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 git config user.name "${GITHUB_ACTOR}"
 crystal init lib $snek_name
-cp $snek_name/README.md .
 cp -rn $snek_name/* .
 cp -rn $snek_name/.?* .
 rm -rf $snek_name/
