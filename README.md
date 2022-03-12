@@ -16,6 +16,11 @@ This template ships with:
 - [Spectator](https://github.com/icy-arctic-fox/spectator) for testing
 - [script/setup](https://github.com/grepsedawk/sharded.cr/blob/main/script/setup) for easy setup
 
+## How to use
+
+1. [Create a New Shard](https://github.com/grepsedawk/sharded.cr/generate)
+1. Begin coding shard functionality right away; initial configuration and some issues to guide will be automatically created.
+
 ## Template Development and Contributing
 
 1. `gh repo clone grepsedawk/sharded.cr`
