@@ -30,6 +30,19 @@ jobs:
       - run: .github/workflows/init
       - uses: grepsedawk/force-push-changes@v0.1.0
 
+      - name: Suggesting repo ends in .cr
+        if: ${{ !endsWith(github.repository, '.cr') }}
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/issues \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Suggestion: Add .cr to end of repo name",
+            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n Suggest adding .cr to end of repository name. It is a helpful convention used by many crystal libraries.\n\n Suggested name: _${{ github.repository }}.cr_"
+            }' \
+          --fail
+
   clone-example:
     if: github.repository == 'grepsedawk/sharded.cr' && github.ref == 'refs/heads/main'
 
