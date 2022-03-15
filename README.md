@@ -27,5 +27,5 @@ This template ships with:
 1. `gh repo create TESTREPONAME` (I tend to use `tmp` since I delete this soon after)
    In the installation, make sure to add a remote (again, I use `tmp`) so you can push tests later on
 1. If you used `tmp`, make commits to main then do `git push tmp main -f`. Else, replace your branch name in for `tmp` here.
-1. Check results, retry if needed, a common workflow while testing for me is `git add . && git commit --amend --no-edit && git push tmp main -f`
+1. Check results in `example` branch, retry if needed, a common workflow while testing for me is `git add . && git commit --amend --no-edit && git push tmp main -f`
 1. When you're ready to make a PR, `git checkout -b new-branch-name` then `gh pr create` and follow the prompts
