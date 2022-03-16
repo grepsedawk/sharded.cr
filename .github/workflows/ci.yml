@@ -51,9 +51,6 @@ jobs:
           - latest
         experimental:
           - false
-        include:
-          - crystal_version: nightly
-            experimental: true
 
     steps:
       - uses: actions/checkout@v2.4.0
