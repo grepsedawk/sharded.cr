@@ -1,31 +1,39 @@
-# sharded.cr ([Example](https://github.com/grepsedawk/sharded.cr/tree/example))
+# sharded
 
-sharded.cr is a Github Template for new Crystal Shards.
+TODO: Write a description here
 
-While a shard can be initialized with `crystal init lib lib_name`, this shard
-template ships with extra goodies that make it faster to get the shard published.
+## Installation
 
-This template ships with:
+1. Add the dependency to your `shard.yml`:
 
-- [ameba](https://github.com/crystal-ameba/ameba) for style linting
-- [Github action](https://github.com/grepsedawk/sharded.cr/blob/main/.github/workflows/ci.yml)
-  for Continuous Integration
-- [Github action](https://github.com/grepsedawk/sharded.cr/blob/main/.github/workflows/docs.yml)
-  to automatically deploy crystal docs to the `gh-pages` branch
-- [Habitat](https://github.com/luckyframework/habitat) for configuration management
-- [Spectator](https://github.com/icy-arctic-fox/spectator) for testing
-- [script/setup](https://github.com/grepsedawk/sharded.cr/blob/main/script/setup) for easy setup
+   ```yaml
+   dependencies:
+     sharded:
+       github: grepsedawk/sharded.cr
+   ```
 
-## How to use
+2. Run `shards install`
 
-1. [Create a New Shard](https://github.com/grepsedawk/sharded.cr/generate)
-1. Begin coding shard functionality right away; initial configuration and some issues to guide will be automatically created.
+## Usage
 
-## Template Development and Contributing
+```crystal
+require "sharded"
+```
 
-1. `gh repo clone grepsedawk/sharded.cr`
-1. `gh repo create TESTREPONAME` (I tend to use `tmp` since I delete this soon after)
-   In the installation, make sure to add a remote (again, I use `tmp`) so you can push tests later on
-1. If you used `tmp`, make commits to main then do `git push tmp main -f`. Else, replace your branch name in for `tmp` here.
-1. Check results in `example` branch, retry if needed, a common workflow while testing for me is `git add . && git commit --amend --no-edit && git push tmp main -f`
-1. When you're ready to make a PR, `git checkout -b new-branch-name` then `gh pr create` and follow the prompts
+TODO: Write usage instructions here
+
+## Development
+
+TODO: Write development instructions here
+
+## Contributing
+
+1. Fork it (<https://github.com/grepsedawk/sharded.cr/fork>)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
+
+## Contributors
+
+- [grepsedawk](https://github.com/grepsedawk) - creator and maintainer
